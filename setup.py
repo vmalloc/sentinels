@@ -4,7 +4,7 @@ import itertools
 from setuptools import setup, find_packages
 
 with open(os.path.join(os.path.dirname(__file__), "sentinels", "__version__.py")) as version_file:
-    exec version_file.read()
+    exec(version_file.read())
 
 setup(name="sentinels",
       classifiers = [
