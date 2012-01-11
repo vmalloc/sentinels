@@ -1,4 +1,5 @@
 from .__version__ import __version__
+import copy_reg
 
 class Sentinel(object):
     _existing_instances = {}
@@ -14,5 +15,16 @@ class Sentinel(object):
         if obj_id in self._existing_instances:
             return self._existing_instances[obj_id]
         return super(Sentinel, self).__new__(self, name)
+
+
+def _sentinel_unpickler(name, obj_id):
+    if obj_id in Sentinel._existing_instances:
+        return Sentinel._existing_instances[obj_id]
+    return Sentinel(name)
+def _sentinel_pickler(sentinel):
+    return _sentinel_unpickler, sentinel.__getnewargs__()
+
+
+copy_reg.pickle(Sentinel, _sentinel_pickler, _sentinel_unpickler)
 
 NOTHING = Sentinel('NOTHING')

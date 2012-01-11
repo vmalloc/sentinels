@@ -67,3 +67,9 @@ Copying sentinels returns the same object::
   >>> import copy
   >>> copy.deepcopy(NOTHING) is NOTHING
   True
+
+And of course also pickling/unpickling::
+
+  >>> import pickle
+  >>> NOTHING is pickle.loads(pickle.dumps(NOTHING))
+  True
