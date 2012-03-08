@@ -1,5 +1,9 @@
 from .__version__ import __version__
-import copy_reg
+try:
+    # python3 renamed copy_reg to copyreg
+    import copyreg
+except ImportError:
+    import copy_reg as copyreg
 
 class Sentinel(object):
     _existing_instances = {}
@@ -25,6 +29,6 @@ def _sentinel_pickler(sentinel):
     return _sentinel_unpickler, sentinel.__getnewargs__()
 
 
-copy_reg.pickle(Sentinel, _sentinel_pickler, _sentinel_unpickler)
+copyreg.pickle(Sentinel, _sentinel_pickler, _sentinel_unpickler)
 
 NOTHING = Sentinel('NOTHING')
