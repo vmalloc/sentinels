@@ -1,4 +1,7 @@
 from .__version__ import __version__
+import platform
+
+_PY_3_3 = platform.python_version() >= "3.3.0"
 try:
     # python3 renamed copy_reg to copyreg
     import copyreg
@@ -15,11 +18,13 @@ class Sentinel(object):
         return "<{0}>".format(self._name)
     def __getnewargs__(self):
         return (self._name, id(self))
-    def __new__(self, name, obj_id=None):
-        if obj_id in self._existing_instances:
-            return self._existing_instances[obj_id]
-        return super(Sentinel, self).__new__(self, name)
-
+    def __new__(cls, name, obj_id=None):
+        if obj_id in cls._existing_instances:
+            return cls._existing_instances[obj_id]
+        if _PY_3_3:
+            return super(Sentinel, cls).__new__(cls)
+        else:
+            return super(Sentinel, cls).__new__(cls, name)
 
 def _sentinel_unpickler(name, obj_id):
     if obj_id in Sentinel._existing_instances:
