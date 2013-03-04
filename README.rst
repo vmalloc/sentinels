@@ -54,12 +54,12 @@ Sentinels are always equal to themselves::
   >>> NOTHING == NOTHING
   True
 
-But never to another object, including sentinels with the same name::
+But never to another object::
 
   >>> from sentinels import Sentinel
   >>> NOTHING == 2
   False
-  >>> NOTHING == Sentinel('NOTHING')
+  >>> NOTHING == "NOTHING"
   False
 
 Copying sentinels returns the same object::

@@ -12,23 +12,23 @@ class Sentinel(object):
     _existing_instances = {}
     def __init__(self, name):
         super(Sentinel, self).__init__()
-        self._existing_instances[id(self)] = self
         self._name = name
+        self._existing_instances[self._name] = self
     def __repr__(self):
         return "<{0}>".format(self._name)
     def __getnewargs__(self):
-        return (self._name, id(self))
-    def __new__(cls, name, obj_id=None):
-        if obj_id in cls._existing_instances:
-            return cls._existing_instances[obj_id]
+        return (self._name,)
+    def __new__(cls, name, obj_id=None): # obj_id is for compatibility with previous versions
+        if name in cls._existing_instances:
+            return cls._existing_instances[name]
         if _PY_3_3:
             return super(Sentinel, cls).__new__(cls)
         else:
             return super(Sentinel, cls).__new__(cls, name)
 
-def _sentinel_unpickler(name, obj_id):
-    if obj_id in Sentinel._existing_instances:
-        return Sentinel._existing_instances[obj_id]
+def _sentinel_unpickler(name, obj_id=None): # obj_id is for compat. with prev. versions
+    if name in Sentinel._existing_instances:
+        return Sentinel._existing_instances[name]
     return Sentinel(name)
 def _sentinel_pickler(sentinel):
     return _sentinel_unpickler, sentinel.__getnewargs__()
