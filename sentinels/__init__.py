@@ -1,7 +1,7 @@
 from .__version__ import __version__
 import platform
 
-_PY_3_3 = platform.python_version() >= "3.3.0"
+_PY_2_6 = platform.python_version() < "2.7"
 try:
     # python3 renamed copy_reg to copyreg
     import copyreg
@@ -21,10 +21,10 @@ class Sentinel(object):
     def __new__(cls, name, obj_id=None): # obj_id is for compatibility with previous versions
         if name in cls._existing_instances:
             return cls._existing_instances[name]
-        if _PY_3_3:
-            return super(Sentinel, cls).__new__(cls)
-        else:
+        if _PY_2_6 :
             return super(Sentinel, cls).__new__(cls, name)
+        else:
+            return super(Sentinel, cls).__new__(cls)
 
 def _sentinel_unpickler(name, obj_id=None): # obj_id is for compat. with prev. versions
     if name in Sentinel._existing_instances:
