@@ -1,7 +1,7 @@
 from .__version__ import __version__
-import platform
+import sys
 
-_PY_2_6 = platform.python_version() < "2.7"
+_PY_2_5 = sys.version_info < (2, 6)
 try:
     # python3 renamed copy_reg to copyreg
     import copyreg
@@ -21,7 +21,7 @@ class Sentinel(object):
     def __new__(cls, name, obj_id=None): # obj_id is for compatibility with previous versions
         if name in cls._existing_instances:
             return cls._existing_instances[name]
-        if _PY_2_6 :
+        if _PY_2_5 :
             return super(Sentinel, cls).__new__(cls, name)
         else:
             return super(Sentinel, cls).__new__(cls)
