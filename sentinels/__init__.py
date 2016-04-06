@@ -1,7 +1,5 @@
 from .__version__ import __version__
-import sys
 
-_PY_2_5 = sys.version_info < (2, 6)
 try:
     # python3 renamed copy_reg to copyreg
     import copyreg
@@ -19,12 +17,10 @@ class Sentinel(object):
     def __getnewargs__(self):
         return (self._name,)
     def __new__(cls, name, obj_id=None): # obj_id is for compatibility with previous versions
-        if name in cls._existing_instances:
-            return cls._existing_instances[name]
-        if _PY_2_5 :
-            return super(Sentinel, cls).__new__(cls, name)
-        else:
-            return super(Sentinel, cls).__new__(cls)
+        existing_instance = cls._existing_instances.get(name)
+        if existing_instance is not None:
+            return existing_instance
+        return super(Sentinel, cls).__new__(cls)
 
 def _sentinel_unpickler(name, obj_id=None): # obj_id is for compat. with prev. versions
     if name in Sentinel._existing_instances:
