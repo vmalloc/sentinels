@@ -10,4 +10,4 @@ class ReadMeDocTest(TestCase):
         )
         assert os.path.exists(readme_path)
         result = doctest.testfile(readme_path, module_relative=False)
-        assert result.failed == 0, "%s tests failed!" % result.failed
+        assert result.failed == 0, "{result.failed} tests failed!"
