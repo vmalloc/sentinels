@@ -1,13 +1,9 @@
+import copyreg
+
 from .__version__ import __version__
 
-try:
-    # python3 renamed copy_reg to copyreg
-    import copyreg
-except ImportError:
-    import copy_reg as copyreg
 
-
-class Sentinel(object):
+class Sentinel:
     _existing_instances = {}
 
     def __init__(self, name):

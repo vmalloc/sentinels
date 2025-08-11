@@ -28,5 +28,11 @@ pip-log.txt
 #### Emacs
 \#*\#
 .#*
-.achievements
-.eggs/
+MANIFEST
+.env
+.eggs
+
+AUTHORS
+ChangeLog
+.venv/
+.idea/

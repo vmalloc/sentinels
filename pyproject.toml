@@ -1,0 +1,23 @@
+[build-system]
+requires = ["hatchling>=0.25.1", "hatch-vcs"]
+build-backend = "hatchling.build"
+
+[project]
+name = "sentinels"
+version = "1.1.0"
+readme = "README.md"
+license = { file = "LICENSE" }
+authors = [
+    { name = "Rotem Yaari", email = "vmalloc@gmail.com" }
+]
+requires-python = ">=3.8"
+dependencies = []
+
+[project.urls]
+"Homepage" = "https://github.com/vmalloc/sentinels"
+
+[project.optional-dependencies]
+testing = ["pytest"]
+
+[tool.hatch.version]
+source = "vcs"

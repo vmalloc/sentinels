@@ -1,1 +1,0 @@
-include MANIFEST.in tests/* tox.ini travis_build.py .pylintrc LICENSE README.rst
