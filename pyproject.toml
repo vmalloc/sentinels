@@ -1,0 +1,38 @@
+[build-system]
+requires = ["hatchling>=0.25.1", "hatch-vcs"]
+build-backend = "hatchling.build"
+
+[project]
+name = "sentinels"
+description = "Various objects to denote special meanings in python"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "BSD 3-Clause License" }
+
+classifiers = [
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+dependencies = []
+dynamic = ["version"]
+
+authors = [{ name = "Rotem Yaari", email = "vmalloc@gmail.com" }]
+
+[project.urls]
+"Homepage" = "https://github.com/vmalloc/sentinels"
+
+[project.optional-dependencies]
+testing = [
+    "pylint",
+    "pytest",
+]
+
+[tool.hatch.version]
+source = "vcs"
+
+[tool.pytest]
+testpaths = "tests"
