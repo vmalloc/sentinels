@@ -7,11 +7,11 @@ except ImportError:
     import copy_reg as copyreg
 
 
-class Sentinel(object):
+class Sentinel:
     _existing_instances = {}
 
     def __init__(self, name):
-        super(Sentinel, self).__init__()
+        super().__init__()
         self._name = name
         self._existing_instances[self._name] = self
 
