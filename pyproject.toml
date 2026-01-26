@@ -36,4 +36,4 @@ testing = [
 source = "vcs"
 
 [tool.pytest]
-testpaths = "tests"
+testpaths = ["tests"]
